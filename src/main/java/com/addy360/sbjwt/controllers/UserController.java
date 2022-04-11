@@ -3,6 +3,7 @@ package com.addy360.sbjwt.controllers;
 import com.addy360.sbjwt.models.UserEntity;
 import com.addy360.sbjwt.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +15,8 @@ public class UserController{
     private final UserService userService;
 
     @GetMapping
-    public List<UserEntity> index() {
-        return userService.index();
+    public ResponseEntity<List<UserEntity>> index() {
+        return ResponseEntity.ok().body(userService.index());
     }
 
     @GetMapping("/{id}")

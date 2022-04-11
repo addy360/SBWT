@@ -27,7 +27,11 @@ public class SbjwtApplication {
 				roleService.store(role);
 			});
 
-			userService.store(new UserEntity(null,"Jane","Doe","jdoe","jdoe@email.com","password",new ArrayList<>()));
+			userService.store(new UserEntity(null,"Jane","Doe","jdoe","jdoe@email.com","password",List.of(roleService.show(1L), roleService.show(2L))));
+
+			userService.store(new UserEntity(null,"John","Doe","jd","john.doe@email.com","password",List.of(roleService.show(3L), roleService.show(4L))));
+
+
 		};
 	}
 
