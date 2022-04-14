@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class UserService implements CrudService<UserEntity>, UserDetailsService {
+public class UserService implements CrudService<UserEntity> {
 
     @Autowired
     UserRepository userRepository;
@@ -43,13 +43,4 @@ public class UserService implements CrudService<UserEntity>, UserDetailsService 
         return userRepository.save(data);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findUserEntityByEmailOrUsername(username,username);
-        if(userEntity == null){
-            log.info("User {} not found",username);
-            throw new UsernameNotFoundException( String.format("User %s not found",username));
-        }
-        return new User(username,userEntity.getPassword(), userEntity.getRoles().stream().map(roleEntity -> new SimpleGrantedAuthority(roleEntity.getRoleName())).collect(Collectors.toSet()));
-    }
 }
